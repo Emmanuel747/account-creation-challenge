@@ -1,0 +1,14 @@
+/* Input.module.css */
+.input {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0;
+}
+
+.input:focus {
+  box-shadow: none;
+  border-color: #6366f1;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}

@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 interface Props {
   type?: 'button' | 'submit';
   href?: string;
+  className?: string;
   children: ReactNode;
+  disabled: boolean;
 }
 
-const classes = 'inline-block py-3 px-6 bg-[hsla(244,49%,49%,1)] text-white';
+export function Button({ href, children, type, className, disabled }: Props) {
+  const classes = className || 'inline-block py-3 px-6 bg-[hsla(244,49%,49%,1)] text-white';
 
-export function Button({ href, children, type }: Props) {
   if (href) {
     return (
       <Link to={href} className={classes}>
@@ -19,7 +21,7 @@ export function Button({ href, children, type }: Props) {
   }
 
   return (
-    <button type={type} className={classes}>
+    <button type={type} className={classes} disabled={disabled}>
       {children}
     </button>
   );

@@ -1,11 +1,13 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, InputHTMLAttributes } from 'react';
 
-interface Props {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label: string;
+  autoComplete?: string; // autoComplete attribute
   onChange?: (value: string) => void;
+  className?: string;
 }
 
-export function Input({ onChange, label }: Props) {
+export function Input({ onChange, label, className = '', ...props }: InputProps) {
   const [value, setValue] = useState('');
   const id = label.replace(/ /gm, '_');
 
@@ -13,14 +15,18 @@ export function Input({ onChange, label }: Props) {
     setValue(event.target.value);
     onChange?.(event.target.value);
   }
+
   return (
     <div>
-      <label className="block text-sm">{label}</label>
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        {label}
+      </label>
       <input
         id={id}
-        className="block w-full p-2 border-4 border-solid border-slate-300"
+        className={`w-full p-2 border-b border-gray-300 focus:border-indigo-500 focus:outline-none transition duration-150 ease-in-out bg-transparent ${className}`}
         value={value}
         onChange={handleChange}
+        {...props}
       />
     </div>
   );
