@@ -4,10 +4,11 @@ import './RequirementIndicator.css';
 interface RequirementIndicatorProps {
   met: boolean;
   label: string;
+  ariaLabel: string;
 }
 
-const RequirementIndicator: React.FC<RequirementIndicatorProps> = ({ met, label }) => (
-  <div className="requirement-item">
+const RequirementIndicator: React.FC<RequirementIndicatorProps> = ({ met, label, ariaLabel }) => (
+  <div className="requirement-item" aria-label={ariaLabel}>
     <div className={`requirement-checkbox ${met ? 'met' : ''}`}>
       <span className="checkbox-icon">{met ? '✓' : '×'}</span>
     </div>

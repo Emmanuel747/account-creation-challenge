@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../../reusable-components/button/button.tsx';
 import { Card } from '../../../reusable-components/card/card.tsx';
 import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout.tsx';
-import { Input } from '../../../reusable-components/input/input';
+import { Input } from '../../../reusable-components/input/Input.tsx';
 
 export function CreateUser() {
   return (
@@ -12,9 +12,7 @@ export function CreateUser() {
           <Input label="First name" />
           <Input label="Last name" />
           <Input label="Email" />
-          <Button disabled={false} href="/signup/joint-access">
-            Continue
-          </Button>
+          <Button disabled={false} href="/signup/joint-access" label={'Continue'} />
         </div>
       </Card>
     </FlowLayout>

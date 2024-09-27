@@ -1,7 +1,7 @@
 // PasswordInput.tsx
 import React from 'react';
 import zxcvbn from 'zxcvbn';
-import { Input } from './input.tsx';
+import { Input } from './Input.tsx';
 import RequirementIndicator from '../../reusable-components/input/RequirementIndicator.tsx';
 
 // autocomplete docs
@@ -14,9 +14,22 @@ interface PasswordInputProps {
   maxLength: number;
   autocomplete: 'password' | 'new-password' | 'current-password';
   setPassword: (password: string) => void;
+  id: string;
+  ariaLabel: string;
+  onValidChange: (isValid: boolean) => void; // callback prop to control submit btn disabled state
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, autocomplete, minLength, maxLength }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({
+  password,
+  setPassword,
+  autocomplete,
+  minLength,
+  maxLength,
+  id,
+  ariaLabel,
+  onValidChange,
+  ...attributes
+}) => {
   const [passwordRequirements, setPasswordRequirements] = React.useState({
     length: false,
     letterAndNumber: false,
@@ -31,13 +44,16 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const strength = zxcvbn(password).score;
 
-    setPasswordRequirements({
+    const newRequirements = {
       length: password.length >= minLength && password.length <= maxLength,
       letterAndNumber: hasLetterAndNumber,
       uppercase: hasUppercase,
       specialChar: hasSpecialChar,
       strength: strength >= 2,
-    });
+    };
+
+    setPasswordRequirements(newRequirements);
+    onValidChange(Object.values(newRequirements).every(Boolean));
   };
 
   React.useEffect(() => {
@@ -50,16 +66,16 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
       <Input
         label="Password"
         type="password"
-        id="password"
+        id={id}
+        aria-label={ariaLabel}
         autoComplete={autocomplete}
-        value={password}
         onChange={setPassword}
-        className="w-full px-0 py-2 border-b border-gray-300 focus:border-indigo-500 focus:outline-none transition duration-150 ease-in-out bg-transparent"
         required
+        {...attributes}
       />
-      <div className="mt-2 space-y-1">
+      <div className="mt-5 space-y-1">
         <RequirementIndicator
-          met={password.length <= maxLength && password.length >= minLength}
+          met={passwordRequirements.length}
           label={
             password.length < minLength
               ? 'Password too short'
@@ -67,11 +83,28 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
               ? 'Password exceeds maximum length'
               : 'Password is sufficient length'
           }
+          ariaLabel="Password length requirement"
         />
-        <RequirementIndicator met={passwordRequirements.letterAndNumber} label="Contains letters and numbers" />
-        <RequirementIndicator met={passwordRequirements.uppercase} label="Contains uppercase letter" />
-        <RequirementIndicator met={passwordRequirements.specialChar} label="Contains special character" />
-        <RequirementIndicator met={passwordRequirements.strength} label="Strong password" />
+        <RequirementIndicator
+          met={passwordRequirements.letterAndNumber}
+          label="Contains letters and numbers"
+          ariaLabel="Password letters and numbers requirement"
+        />
+        <RequirementIndicator
+          met={passwordRequirements.uppercase}
+          label="Contains uppercase letter"
+          ariaLabel="Password uppercase letter requirement"
+        />
+        <RequirementIndicator
+          met={passwordRequirements.specialChar}
+          label="Contains special character"
+          ariaLabel="Password special character requirement"
+        />
+        <RequirementIndicator
+          met={passwordRequirements.strength}
+          label="Strong password"
+          ariaLabel="Password strength requirement"
+        />
       </div>
     </div>
   );
