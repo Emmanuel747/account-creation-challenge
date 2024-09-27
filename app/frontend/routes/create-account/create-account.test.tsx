@@ -40,7 +40,7 @@ describe('CreateAccount', () => {
   //   // Click the submit button
   //   fireEvent.click(submitButton);
 
-  //   // there is a bug here, the test can't seem to read the string properly.
+  //   // --> there is a bug here, the test can't seem to read the string properly. <--
   //   await new Promise((resolve) => setTimeout(resolve, 0));
 
   //   const errorMsg = document.querySelector('.error-msg');
