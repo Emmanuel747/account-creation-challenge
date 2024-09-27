@@ -6,7 +6,7 @@ interface Props {
   href?: string;
   className?: string;
   children?: ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
   label: string;
 }
 
