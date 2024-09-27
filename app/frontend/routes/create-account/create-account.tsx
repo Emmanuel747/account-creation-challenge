@@ -3,6 +3,8 @@ import { FlowLayout } from '../../reusable-components/flow-layout/flow-layout.ts
 import { Input } from '../../reusable-components/input/input';
 import { Button } from '../../reusable-components/button/button';
 import PasswordInput from 'app/frontend/reusable-components/input/PasswordInput.tsx';
+import { LogoSvg } from '../../../assets/logo-components/logo-components.tsx';
+
 import './create-account.css';
 
 const CreateAccount = () => {
@@ -37,16 +39,17 @@ const CreateAccount = () => {
           'Content-Type': 'application/json',
           ...(csrfToken && { 'X-CSRF-Token': csrfToken }),
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ user: { username, password } }),
       });
 
       if (response.ok) {
-        window.location.href = '/signup/account-selection';
+        // window.location.href = '/signup/account-selection';
       } else {
         const data = await response.json();
         setError(data.error || 'An error occurred while creating the account.');
       }
     } catch (err) {
+      console.log(err);
       setError('An error occurred while creating the account. Please try again.');
     }
   };
@@ -55,11 +58,7 @@ const CreateAccount = () => {
     <FlowLayout>
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <div className="bg-white p-8 rounded-2xl shadow-lg w-96 max-w-md">
-          <div className="flex justify-center mb-6">
-            <div className="w-12 h-8 bg-indigo-600 rounded-r-full transform -skew-x-12"></div>
-            <div className="w-8 h-8 bg-indigo-500 rounded-r-full transform -skew-x-12 -ml-4"></div>
-            <div className="w-4 h-8 bg-indigo-400 rounded-r-full transform -skew-x-12 -ml-4"></div>
-          </div>
+          <LogoSvg className="flex justify-center mb-6" />
           <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Create New Account</h2>
           {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -72,7 +71,13 @@ const CreateAccount = () => {
               minLength={10}
               maxLength={50}
             />
-            <PasswordInput password={password} setPassword={setPassword} autocomplete="current-password" />
+            <PasswordInput
+              password={password}
+              setPassword={setPassword}
+              minLength={20}
+              maxLength={50}
+              autocomplete="current-password"
+            />
             <Button
               type="submit"
               disabled={!isFormValid}

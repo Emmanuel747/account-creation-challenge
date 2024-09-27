@@ -12,7 +12,9 @@ export function CreateUser() {
           <Input label="First name" />
           <Input label="Last name" />
           <Input label="Email" />
-          <Button href="/signup/joint-access">Continue</Button>
+          <Button disabled={false} href="/signup/joint-access">
+            Continue
+          </Button>
         </div>
       </Card>
     </FlowLayout>

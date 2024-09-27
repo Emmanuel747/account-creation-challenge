@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   get 'create-account', to: 'application#render_react', as: :create_account
 
   namespace :api do
-    post 'create-account', to: 'api#create_account'
+    post 'create-account', to: 'create_account#create'
   end
 end

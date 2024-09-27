@@ -23,7 +23,7 @@ input {
 
 input:focus {
   box-shadow: none;
-  border-color: #6366f1;
+  border-color: #4545b4;
 }
 
 input::placeholder {
@@ -43,7 +43,7 @@ input::placeholder {
 }
 
 .flat-line-input:focus {
-  border-bottom: 2px solid #6366f1;
+  border-bottom: 2px solid #4545b4;
 }
 
 button:disabled {

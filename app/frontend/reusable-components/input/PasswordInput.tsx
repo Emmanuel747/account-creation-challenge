@@ -10,11 +10,13 @@ import RequirementIndicator from '../../reusable-components/input/RequirementInd
 
 interface PasswordInputProps {
   password: string;
+  minLength: number;
+  maxLength: number;
   autocomplete: 'password' | 'new-password' | 'current-password';
   setPassword: (password: string) => void;
 }
 
-const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, autocomplete }) => {
+const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, autocomplete, minLength, maxLength }) => {
   const [passwordRequirements, setPasswordRequirements] = React.useState({
     length: false,
     letterAndNumber: false,
@@ -30,7 +32,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
     const strength = zxcvbn(password).score;
 
     setPasswordRequirements({
-      length: password.length >= 20 && password.length <= 50,
+      length: password.length >= minLength && password.length <= maxLength,
       letterAndNumber: hasLetterAndNumber,
       uppercase: hasUppercase,
       specialChar: hasSpecialChar,
@@ -40,6 +42,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
 
   React.useEffect(() => {
     validatePassword(password);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password]);
 
   return (
@@ -55,7 +58,16 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ password, setPassword, au
         required
       />
       <div className="mt-2 space-y-1">
-        <RequirementIndicator met={passwordRequirements.length} label="20-50 characters long" />
+        <RequirementIndicator
+          met={password.length <= maxLength && password.length >= minLength}
+          label={
+            password.length < minLength
+              ? 'Password too short'
+              : password.length > maxLength
+              ? 'Password exceeds maximum length'
+              : 'Password is sufficient length'
+          }
+        />
         <RequirementIndicator met={passwordRequirements.letterAndNumber} label="Contains letters and numbers" />
         <RequirementIndicator met={passwordRequirements.uppercase} label="Contains uppercase letter" />
         <RequirementIndicator met={passwordRequirements.specialChar} label="Contains special character" />
