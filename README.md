@@ -1,8 +1,11 @@
-# Code Challenge Repository
+## Quick Overview
+![PReady Login Page with Dynamic User Feedback](https://github.com/user-attachments/assets/cb1280f1-40ab-43cb-b78e-898c05d3f789)
 
-## Overview
-
-This repository contains boilerplate code you will use to build the create account form.
+**Some examples of the new features:**
+- Yes@gmail.com was already in the database, so I gracefully asked the user to use a different username or password.
+- Checks for proper passwords on the client and API side. Informs the user of what is needed without being too specific
+- Even if the user manipulates the DOM with the browser console, they won't get past the form
+- The submit button remains disabled until the user has created a valid form entry to prevent unnecessary API calls.
 
 ## Tech used
 
