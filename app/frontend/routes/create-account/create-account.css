@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+input {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0;
+}
+
+input:focus {
+  box-shadow: none;
+  border-color: #4545b4;
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+/* Custom styles for the flat line input */
+.flat-line-input {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0;
+  background-color: transparent;
+}
+
+.flat-line-input:focus {
+  border-bottom: 2px solid #4545b4;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  transform: none;
+}

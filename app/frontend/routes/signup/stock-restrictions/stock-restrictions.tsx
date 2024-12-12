@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../../reusable-components/button/button.tsx';
 import { Card } from '../../../reusable-components/card/card.tsx';
 import { FlowLayout } from '../../../reusable-components/flow-layout/flow-layout.tsx';
-import { Input } from '../../../reusable-components/input/input.tsx';
+import { Input } from '../../../reusable-components/input/Input.tsx';
 
 export function StockRestrictions() {
   return (
@@ -14,7 +14,7 @@ export function StockRestrictions() {
         {/*<li>style UI to look like given mock, make sure the typeahead is realtime feeling search</li>*/}
         <div className="space-y-2">
           <Input label="Stock Symbol" />
-          <Button href="/signup/deposit">Continue</Button>
+          <Button href="/signup/deposit" label="Continue"></Button>
         </div>
       </Card>
     </FlowLayout>

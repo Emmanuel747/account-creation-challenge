@@ -8,6 +8,9 @@ export function Root() {
       <Link to="/signup/account-selection" className="text-xl">
         Get started
       </Link>
+      <Link to="/create-account" className="text-xl">
+        <b> Create New Account</b>
+      </Link>
     </FlowLayout>
   );
 }
